@@ -2,9 +2,9 @@ Module.register('MMM-FPL-Standings', {
 
     defaults: {
         leagueId: "643642",
+        team: "Primbow",
         interval: 600000 // Every 10 minutes
     },
-
 
     start: function () {
         Log.log('Starting module: ' + this.name);
@@ -12,25 +12,21 @@ Module.register('MMM-FPL-Standings', {
         // Set up the local values, here we construct the request url to use
         this.loaded = false;
         this.url = 'https://fantasy.premierleague.com/api/leagues-classic/' + this.config.leagueId + '/standings/';
-        this.location = '';
         this.result = null;
 
         // Trigger the first request
         this.getFplStandingsData(this);
     },
 
-
     getStyles: function () {
         return ['fpl-standings.css', 'font-awesome.css', 'modules/MMM-FPL-Standings/node_modules/@mdi/font/css/materialdesignicons.min.css'];
     },
-
 
     getFplStandingsData: function (that) {
         // Make the initial request to the helper then set up the timer to perform the updates
         that.sendSocketNotification('GET-FPL-STATUS', that.url);
         setTimeout(that.getFplStandingsData, that.config.interval, that);
     },
-
 
     getDom: function () {
         const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -77,7 +73,13 @@ Module.register('MMM-FPL-Standings', {
 
                 for (var i = 0; i < this.result.standings.results.length; i++) {
                     standingRow = document.createElement('tr');
-                    standingRow.className = 'bright xsmall';
+
+                    if(this.config.team === this.result.standings.results[i].entry_name) {
+                        standingRow.className = 'bright xsmall';
+                    }
+                    else {
+                        standingRow.className = 'xsmall';
+                    }
 
                     rank = document.createElement('td');
                     if (this.result.standings.results[i].rank < this.result.standings.results[i].last_rank) {
@@ -110,15 +112,14 @@ Module.register('MMM-FPL-Standings', {
                     fplResults.appendChild(standingRow);
                 }
 
-                var date = date = new Date(this.result.last_updated_data);
-
-                leagueNameRow = document.createElement('tr');
-                leagueName = document.createElement('td');
-                leagueName.setAttribute("colspan", "5");
-                leagueName.innerHTML = 'Last updated : ' + weekday[date.getDay()] + ' ' + date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getHours() + ':' + date.getMinutes();
-                leagueName.class = 'bright xsmall';
-                leagueNameRow.appendChild(leagueName);
-                fplResults.appendChild(leagueNameRow);
+                var date= new Date(this.result.last_updated_data);
+                lastUpdatedRow = document.createElement('tr');
+                lastUpdated = document.createElement('td');
+                lastUpdated.setAttribute("colspan", "5");
+                lastUpdated.innerHTML = 'Last updated : ' + weekday[date.getDay()] + ' ' + date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getHours() + ':' + date.getMinutes();
+                lastUpdated.class = 'bright xsmall';
+                lastUpdatedRow.appendChild(lastUpdated);
+                fplResults.appendChild(lastUpdatedRow);
 
                 wrapper.appendChild(fplResults);
             } else {
@@ -132,7 +133,6 @@ Module.register('MMM-FPL-Standings', {
 
         return wrapper;
     },
-
 
     socketNotificationReceived: function (notification, payload) {
         // check to see if the response was for us and used the same url
