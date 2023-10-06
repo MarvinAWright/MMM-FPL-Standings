@@ -11,7 +11,7 @@ Module.register('MMM-FPL-Standings', {
 
         // Set up the local values, here we construct the request url to use
         this.loaded = false;
-        this.url = 'https://fantasy.premierleague.com/api/leagues-classic/" + this.config.leagueId + "/standings/';
+        this.url = 'https://fantasy.premierleague.com/api/leagues-classic/' + this.config.leagueId + '/standings/';
         this.location = '';
         this.result = null;
 
