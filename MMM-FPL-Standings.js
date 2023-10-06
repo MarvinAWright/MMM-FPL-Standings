@@ -1,8 +1,8 @@
 Module.register('MMM-FPL-Standings', {
 
     defaults: {
-        leagueId: "643642",
-        team: "Primbow",
+        leagueId: "",
+        team: "",
         interval: 600000 // Every 10 minutes
     },
 
