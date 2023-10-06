@@ -1,0 +1,37 @@
+{
+  "name": "MMM-FPL-Standings",
+  "version": "1.0.1",
+  "description": "Module Base template for create new modules for MagicMirror",
+  "scripts": {
+    "test": "./node_modules/grunt/bin/grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarvinAWright/MMM-FPL-Standings.git"
+  },
+  "keywords": [
+    "magic mirror",
+    "fantasy premier league",
+    "module"
+  ],
+  "author": "Marvin Wright",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarvinAWright/MMM-FPL-Standings/issues"
+  },
+  "homepage": "https://github.com/MarvinAWright/MMM-FPL-Standings",
+  "dependencies": {
+    "@mdi/font": "latest"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-eslint": "latest",
+    "grunt-jsonlint": "latest",
+    "grunt-markdownlint": "latest",
+    "grunt-stylelint": "latest",
+    "grunt-yamllint": "latest",
+    "stylelint": "latest",
+    "stylelint-config-standard": "latest",
+    "time-grunt": "latest"
+  }
+}
