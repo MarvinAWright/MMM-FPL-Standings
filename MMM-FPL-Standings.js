@@ -40,7 +40,7 @@ Module.register('MMM-FPL-Standings', {
         if (this.loaded) {
             if (this.result !== null) {
                 fplResults = document.createElement('table');
-                fplResults.setAttribute('cellspacing', 0);
+                fplResults.setAttribute('cellspacing', 2);
                 fplResults.setAttribute('cellpadding', 2);
 
 
