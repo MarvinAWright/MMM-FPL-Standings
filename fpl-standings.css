@@ -1,4 +1,13 @@
-.xsmall {
+.MMM-FPL-Standings .xsmall {
     font-size: 15px;
     line-height: 20px;
+}
+
+.MMM-FPL-Standings th {
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.MMM-FPL-Standings td {
+    padding-left: 5px;
 }

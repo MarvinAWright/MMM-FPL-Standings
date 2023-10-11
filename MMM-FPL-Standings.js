@@ -40,9 +40,6 @@ Module.register('MMM-FPL-Standings', {
         if (this.loaded) {
             if (this.result !== null) {
                 fplResults = document.createElement('table');
-                fplResults.setAttribute('cellspacing', 2);
-                fplResults.setAttribute('cellpadding', 2);
-
 
                 leagueNameRow = document.createElement('tr');
                 leagueName = document.createElement('td');
@@ -53,15 +50,15 @@ Module.register('MMM-FPL-Standings', {
                 fplResults.appendChild(leagueNameRow);
 
                 rowHeader = document.createElement('tr');
-                rankHeader = document.createElement('td');
+                rankHeader = document.createElement('th');
                 rankHeader.innerHTML = 'Rank';
-                teamHeader = document.createElement('td');
+                teamHeader = document.createElement('th');
                 teamHeader.innerHTML = 'Team';
-                managerHeader = document.createElement('td');
+                managerHeader = document.createElement('th');
                 managerHeader.innerHTML = 'Manager';
-                gameWeekHeader = document.createElement('td');
+                gameWeekHeader = document.createElement('th');
                 gameWeekHeader.innerHTML = 'GW';
-                totalHeader = document.createElement('td');
+                totalHeader = document.createElement('th');
                 totalHeader.innerHTML = 'Total';
 
                 rowHeader.appendChild(rankHeader);
