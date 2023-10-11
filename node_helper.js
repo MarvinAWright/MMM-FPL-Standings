@@ -1,5 +1,5 @@
 var NodeHelper = require('node_helper');
-var request = require('request');
+const got = require('got');
 
 module.exports = NodeHelper.create({
 
@@ -11,28 +11,24 @@ module.exports = NodeHelper.create({
     },
 
 
-    getFplStandingsData: function (payload) {
-        var that = this;
-        this.url = payload;
+    getFplStandingsData: function (url) {
+        let that = this;
+        this.url = url;
 
-        request({url: this.url, method: 'GET'}, function (error, response, body) {
-            // Lets convert the body into JSON
-            var result = JSON.parse(body);
-
-            // Check to see if we are error free and got an OK response
-            if (!error && response.statusCode === 200) {
-                // Let's get the data
-                that.result = result;
-            } else {
-                // In all other cases it's some other error
-                that.result = null;
-            }
-
-            // We have the response figured out so lets fire off the notification
+        got.get(this.url, {
+            responseType: 'json'
+        }).then(response => {
+            // console.debug('MMM-FPL-Standings - Status code:' + response.statusCode);
+            // console.debug('MMM-FPL-Standings - response:' + response);
+            // console.debug('MMM-FPL-Standings - body:' + JSON.stringify(response.body));
+            that.result = response.body;
+            that.sendSocketNotification('GOT-FPL-STATUS', {'url': that.url, 'result': that.result});
+        }).catch(error => {
+            console.error('MMM-FPL-Standings - Status code:' + error.response.statusCode);
+            that.result = null;
             that.sendSocketNotification('GOT-FPL-STATUS', {'url': that.url, 'result': that.result});
         });
     },
-
 
     socketNotificationReceived: function (notification, payload) {
         // Check this is for us
